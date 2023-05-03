@@ -1,7 +1,7 @@
 version: "3.9"
 
 services:
-  novnc:
+  qqnt:
     image: ilharp/qqnt:0.0.1
 
     # Or build locally
