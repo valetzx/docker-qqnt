@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  novnc:
+    image: ilharp/qqnt:0.0.1
+
+    # Or build locally
+    # build: .
+
+    deploy:
+      restart_policy:
+        condition: on-failure
+
+    ports:
+      - "80:80"
+      - "5901:5901"

@@ -1,0 +1,72 @@
+name: Push
+
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - "*.*.*"
+  workflow_dispatch:
+
+jobs:
+  push:
+    name: Push
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Prepare Tag
+        id: tag
+        if: ${{ startsWith(github.ref, 'refs/tags/') }}
+        run: |
+          VERSION="${GITHUB_REF##refs/tags/}"
+          echo "Found Tag: ${VERSION}"
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+        shell: bash
+
+      - name: Setup QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Setup Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ilharp
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ilharp
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push Auto-Tagging Tags
+        if: ${{ !startsWith(github.ref, 'refs/tags/') }}
+        env:
+          BUILD_DOCKER_BUILDER: ${{ steps.buildx.outputs.name }}
+        run: |
+          ./build.sh push
+        shell: bash
+
+      - name: Push Git Tags
+        if: ${{ startsWith(github.ref, 'refs/tags/') }}
+        env:
+          BUILD_DOCKER_BUILDER: ${{ steps.buildx.outputs.name }}
+          BUILD_TAG: ${{ steps.tag.outputs.version }}
+        run: |
+          ./build.sh push
+        shell: bash
