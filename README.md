@@ -4,7 +4,7 @@
 
 [GitHub](https://github.com/ilharp/docker-qqnt)
 |
-[GitHub Container Registry](https://github.com/orgs/ilharp/packages/container/package/docker-qqnt)
+[GitHub Container Registry](https://github.com/ilharp/docker-qqnt/pkgs/container/docker-qqnt)
 |
 [Docker Hub](https://hub.docker.com/r/ilharp/qqnt)
 

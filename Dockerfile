@@ -13,7 +13,7 @@ RUN apt update && \
   apt upgrade -y -o Dpkg::Options::="--force-confold" && \
   \
   # Install packages
-  apt install -y wget && \
+  apt install -y fonts-noto-cjk wget && \
   \
   # QQNT
   wget -O /tmp/qqnt.deb ${BUILD_QQNT_LINK}_${BUILD_ARCH}.deb && \
