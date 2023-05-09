@@ -56,6 +56,13 @@ docker run --rm -it -p 6080:80 -p 5901 -e VNC_PASSWD=password ilharp/qqnt /sbin/
 docker run --rm -it -p 6080:80 -p 5901 -e VNC_PASSWD=password ilharp/qqnt bash
 ```
 
+## 配方
+
+### 持久化
+
+- 持久化数据： `/root/.config/QQ`
+- 持久化登录信息： `/root/.config/QQ/global/nt_db`
+
 ## 开发
 
 先创建一个 builder：
