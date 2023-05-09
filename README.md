@@ -17,7 +17,7 @@
 ### 使用 Docker
 
 ```sh
-docker run --rm -it -p 6080:80 -p 5901 -e VNC_PASSWD=password ilharp/qqnt
+docker run --rm -it --security-opt seccomp=unconfined -p 6080:80 -p 5901 -e VNC_PASSWD=password ilharp/qqnt
 ```
 
 ### 使用 Docker Compose

@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM ifrstr/novnc:0.0.1
+FROM ifrstr/novnc:0.0.2
 
 ARG BUILD_QQNT_LINK
 ARG BUILD_ARCH
@@ -8,9 +8,6 @@ ARG BUILD_ARCH
 COPY --chmod=0755 rootfs /
 
 RUN apt update && \
-  \
-  # Upgrade OS
-  apt upgrade -y -o Dpkg::Options::="--force-confold" && \
   \
   # Install packages
   apt install -y fonts-noto-cjk wget && \
