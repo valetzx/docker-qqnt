@@ -57,10 +57,10 @@ do
   case ${BUILD_MODE} in
     "push")
       # Wait for manifest update
-      sleep 120
+      sleep 60
 
-      BUILD_MANIFEST_AMD64_DIGEST=$(docker manifest inspect ilharp/qqnt:${BUILD_TAG}-linux-amd64-up${BUILD_QQNT_VERSION} | jq --raw-output '.manifests | map(select(.platform.architecture == "amd64")) | .[0].digest')
-      BUILD_MANIFEST_ARM64_DIGEST=$(docker manifest inspect ilharp/qqnt:${BUILD_TAG}-linux-arm64-up${BUILD_QQNT_VERSION} | jq --raw-output '.manifests | map(select(.platform.architecture == "arm64")) | .[0].digest')
+      BUILD_MANIFEST_AMD64_DIGEST=$(docker buildx imagetools inspect --raw ilharp/qqnt:${BUILD_TAG}-linux-amd64-up${BUILD_QQNT_VERSION} | jq --raw-output '.manifests | map(select(.platform.architecture == "amd64")) | .[0].digest')
+      BUILD_MANIFEST_ARM64_DIGEST=$(docker buildx imagetools inspect --raw ilharp/qqnt:${BUILD_TAG}-linux-arm64-up${BUILD_QQNT_VERSION} | jq --raw-output '.manifests | map(select(.platform.architecture == "arm64")) | .[0].digest')
 
       docker manifest create ghcr.io/ilharp/docker-qqnt:${BUILD_TAG}-linux-up${BUILD_QQNT_VERSION} \
         ghcr.io/ilharp/docker-qqnt@${BUILD_MANIFEST_AMD64_DIGEST} \
