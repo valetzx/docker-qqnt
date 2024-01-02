@@ -1,3 +1,7 @@
+# 项目代码来自 https://github.com/ilharp
+
+原作者好像衫裤了，我也觉得这个docker-qqnt没啥用，效果就是开个linux桌面然后启动qqnt而已，如果要更新版本请在 `config.sh` 中添加心版本下载链接
+
 # docker-qqnt
 
 在 Docker 中运行 QQNT 官方客户端
